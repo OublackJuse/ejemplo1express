@@ -1,20 +1,13 @@
-const mongoose = require("mongoose"); // importando el componente mogoose
-const animalSchema = mongoose.Schema({
-    nombre: {
-        type: String,
-        required: true,
-    },
-    edad: {
-        type: Number,
-        required: true,
-    },
-    tipo: {
-        type: String,
-        required: true,
-    },
-    fecha: {
-        type: Date,
-        requiered: true,
-    }
+const express = require("express");
+const router = express.Router(); //manejador de rutas de express
+const animalSchema = require("../models/animal");
+//Nuevo animal
+router.post("/animals", (req, res) => {
+    const animal = animalSchema(req.body);
+    animal
+        .save()
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
 });
-module.exports = mongoose.model("Animal", animalSchema);
+module.exports = router;
+
